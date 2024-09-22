@@ -28,27 +28,9 @@ max_min([H | T], Max, Min, TMax, TMin) :- max_min(T, Max, Min, TMax, TMin).
 
 % ex 1.6 take & split
 
-take(_, 0, TL, TL).
-take([], _, TL, TL).
-
-take([], N, TL).
-take(List, N, L) :- take(List, N, [], R), reverse(R, L).
-take([H | T], N, TL, L) :- 
-	N > 0, 
-	N1 is N - 1, 
-	take(T, N1, [H | TL], L).
-
-split(List, 0, TL, TL, List).
-split([], _, TL, TL, []). 
-
-split([H | T], N, TL, L, Rest) :-
-    N > 0,
-    N1 is N - 1,
-    split(T, N1, [H | TL], L, Rest).
-
-split(List, N, L, Rest) :-
-    split(List, N, [], R, Rest),
-    reverse(R, L).
+split(L, E, S1, S2) :- split(L, E, S1, S2, []).
+split([H | T], N, S1, S2, S1Temp) :- N > 0, N2 is N - 1, split(T, N2, S1, S2, [H | S1Temp]). 
+split(T, 0, S1, T, S1Temp) :- reverse(S1, S1Temp).
 
 % ex 1.7
 
